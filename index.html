@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>صفحه اصلی</title>
+  <style>
+    .image-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .image-container img {
+      width: 200px;
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>عکس‌های آپلود شده</h1>
+  <div class="image-container" id="image-container"></div>
+
+  <script>
+    // دریافت لیست عکس‌ها از سرور
+    fetch('/images')
+      .then(response => response.json())
+      .then(images => {
+        const container = document.getElementById('image-container');
+        images.forEach(image => {
+          const img = document.createElement('img');
+          img.src = `/img/${image}`; // تغییر به img
+          container.appendChild(img);
+        });
+      })
+      .catch(error => console.error('خطا در دریافت عکس‌ها:', error));
+  </script>
+</body>
+</html>
